@@ -8,5 +8,17 @@
 
 import Foundation
 
-print("Hello, World!")
+let expr: Expr = "(cond ((atom (quote A)) (quote B)) ((quote true) (quote C)))"
 
+var exit = false
+
+while !exit {
+    print(">>>", terminator: " ")
+    let input = readLine(strippingNewline: true)
+    exit = (input == "exit")
+    
+    if !exit {
+        let e = Expr.read(input!)
+        print(e.eval()!)
+    }
+}

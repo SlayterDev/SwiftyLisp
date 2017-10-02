@@ -110,6 +110,10 @@ extension Expr {
             
             var i = 0
             repeat {
+                guard i < tokens.count else {
+                    print("Syntax error!! Check your parentheses.")
+                    Darwin.exit(1)
+                }
                 let t = tokens[i]
                 
                 switch t {

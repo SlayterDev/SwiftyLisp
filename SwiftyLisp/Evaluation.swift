@@ -23,6 +23,17 @@ fileprivate enum Builtins: String {
                 (atom == Builtins.lambda.rawValue) ||
                 (atom == Builtins.defun.rawValue)
     }
+    
+    public static func getAlias(_ atom: String) -> String? {
+        switch atom {
+        case "=":
+            return Builtins.equal.rawValue
+        case "t":
+            return "true"
+        default:
+            return nil
+        }
+    }
 }
 
 private var defaultEnvironment: [String: LispFunc] = {
@@ -207,11 +218,17 @@ private var mathFunctions: [String: LispFunc] = {
     }
     
     env["-"] = { params, locals, values in
-        guard case let .list(parameters) = params, parameters.count > 2 else { return .list([]) }
+        guard case let .list(parameters) = params, parameters.count > 1 else { return .list([]) }
         
         let elems = parameters.dropFirst().map { $0.eval(with: locals, for: values)! }
         
-        return performMathOperation(elems, op: -=)
+        if elems.count > 1 {
+            return performMathOperation(elems, op: -=)
+        } else {
+            guard case let .atom(strVal) = elems[0], let intVal = Int(strVal) else { return .list([]) }
+            
+            return .atom("\(-intVal)")
+        }
     }
     
     env["*"] = { params, locals, values in
@@ -256,10 +273,12 @@ extension Expr {
             }
             node = .list(elements)
             
-            if elements.count > 0, case let .atom(val) = elements[0],
-                let f = localContext[val] ?? mathFunctions[val] ?? defaultEnvironment[val] {
-                let r = f(node, locals, values)
-                return r
+            if elements.count > 0, case var .atom(val) = elements[0] {
+                val = Builtins.getAlias(val) ?? val
+                if let f = localContext[val] ?? mathFunctions[val] ?? defaultEnvironment[val] {
+                    let r = f(node, locals, values)
+                    return r
+                }
             }
             
             return node

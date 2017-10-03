@@ -5,7 +5,7 @@
 	(- X))
 
 (defun factorial (N)
-	(cond 
+	(if 
 		((= N 1) 1)
 		(t (* N (factorial (- N 1))))))
 

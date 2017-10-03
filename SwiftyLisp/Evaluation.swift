@@ -31,7 +31,7 @@ fileprivate enum Builtins: String {
         case "t":
             return "true"
         case "if":
-            return "cond"
+            return Builtins.cond.rawValue
         default:
             return nil
         }

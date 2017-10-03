@@ -11,10 +11,8 @@ import Foundation
 let expr: Expr = "(cond ((atom (quote A)) (quote B)) ((quote true) (quote C)))"
 
 if CommandLine.arguments.count > 1 {
-    if var fileContents = try? String(contentsOfFile: CommandLine.arguments[1], encoding: .utf8) {
-        fileContents = fileContents.replacingOccurrences(of: "\n", with: " ")
-        fileContents = fileContents.replacingOccurrences(of: "\t", with: "")
-        let e = Expr.read("(" + fileContents + ")")
+    if let fileContents = try? String(contentsOfFile: CommandLine.arguments[1], encoding: .utf8) {
+        let e = Expr.read("(" + fileContents.stripEscapeChars() + ")")
         print(e.eval()!)
     } else {
         print("[-] Could not read file: \(CommandLine.arguments[1])")

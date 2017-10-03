@@ -4,5 +4,14 @@
 (defun negate (X)
 	(- X))
 
-(triple 2)
-(negate 3)
+(defun factorial (N)
+	(cond 
+		((= N 1) 1)
+		(t (* N (factorial (- N 1))))))
+
+(defun fib (N)
+	(cond
+		((= N 0) 0)
+		((= N 1) 1)
+		((= N 2) 1)
+		(t (+ (fib (- N 2)) (fib (- N 1))))))

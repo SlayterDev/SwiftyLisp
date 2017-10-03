@@ -15,7 +15,7 @@ func += <K, V> (left: inout [K: V], right: [K: V]) {
 public typealias LispFunc = (Expr, [Expr]?, [Expr]?) -> Expr
 
 fileprivate enum Builtins: String {
-    case quote, car, cdr, cons, equal, atom, cond, lambda, defun, list, println, eval
+    case quote, car, cdr, cons, equal, atom, cond, lambda, defun, list, println, eval, load
     
     public static func mustSkip(_ atom: String) -> Bool {
         return (atom == Builtins.quote.rawValue) ||
@@ -30,6 +30,8 @@ fileprivate enum Builtins: String {
             return Builtins.equal.rawValue
         case "t":
             return "true"
+        case "if":
+            return "cond"
         default:
             return nil
         }
@@ -190,6 +192,17 @@ private var defaultEnvironment: [String: LispFunc] = {
         guard case let .list(parameters) = params, parameters.count > 2 else { return .list([]) }
         
         return parameters[1].eval(with: locals, for: values)!
+    }
+    
+    env[Builtins.load.rawValue] = { params, locals, values in
+        guard case let .list(parameters) = params, parameters.count == 2 else { return .list([]) }
+        
+        if case let .atom(strVal) = parameters[1], let fileContents = try? String(contentsOfFile: strVal, encoding: .utf8) {
+            let e = Expr.read("(" + fileContents.stripEscapeChars() + ")")
+            return e.eval(with: locals, for: values)!
+        }
+        
+        return .list([])
     }
     
     return env

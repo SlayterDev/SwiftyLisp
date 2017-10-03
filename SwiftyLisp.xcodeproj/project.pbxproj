@@ -10,6 +10,7 @@
 		E60642011F7E757200100DF1 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60642001F7E757200100DF1 /* main.swift */; };
 		E60642081F7E77B300100DF1 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60642071F7E77B300100DF1 /* Model.swift */; };
 		E606420A1F7E7F9500100DF1 /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E60642091F7E7F9500100DF1 /* Evaluation.swift */; };
+		E64B1EB71F82757200A7C51A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64B1EB61F82757200A7C51A /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +30,7 @@
 		E60642001F7E757200100DF1 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		E60642071F7E77B300100DF1 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E60642091F7E7F9500100DF1 /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
+		E64B1EB61F82757200A7C51A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				E60642001F7E757200100DF1 /* main.swift */,
 				E60642071F7E77B300100DF1 /* Model.swift */,
 				E60642091F7E7F9500100DF1 /* Evaluation.swift */,
+				E64B1EB61F82757200A7C51A /* Utils.swift */,
 			);
 			path = SwiftyLisp;
 			sourceTree = "<group>";
@@ -129,6 +132,7 @@
 				E606420A1F7E7F9500100DF1 /* Evaluation.swift in Sources */,
 				E60642011F7E757200100DF1 /* main.swift in Sources */,
 				E60642081F7E77B300100DF1 /* Model.swift in Sources */,
+				E64B1EB71F82757200A7C51A /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
